@@ -6,30 +6,30 @@ import Footer from './Footer';
 import './App.css';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
+import { useEffect } from 'react';
 
 function App() {
+const API_URL="http://localhost:3500/items"
 
-  const [items, newItems] = useState([{
-    id:1,
-    check:false,
-    content: "learn"
-},{
-    id:2,
-    check:true,
-    content:"handson"
-},{
-    id:3,
-    check: true,
-    content:"implement"
-},{
-    id:4,
-    check: true,
-    content: "earn"
-}]);
+const [items, newItems] = useState([]);
 
 
 const [newItem, setNewItem] = useState('');
 const [search,setSearch] = useState('');
+
+useEffect( ()=>{
+  const fetchItem = async () => {
+    try {
+      const response = await fetch(API_URL)
+      const listItem=await response.json()
+      newItems(listItem)
+    } catch (error) {
+      console.log(error.stack)
+    }
+  }
+
+  (async() => await fetchItem()) ()
+}, [])
 
 const handleChange = (id) =>{
     const updateItem = items.map(item =>
@@ -42,6 +42,7 @@ const handleChange = (id) =>{
 const deleteItem= (id) => {
     const updateItem = items.filter(item => item.id !== id)
     newItems(updateItem)
+    
 }
 
 const handleSubmit=(e)=>{
