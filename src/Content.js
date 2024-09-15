@@ -4,7 +4,7 @@ import { FaTrashAlt } from "react-icons/fa";
 const Content = ({items, handleChange, deleteItem}) => {
 
     return(
-        <main>
+        <>
             {(items.length) ?(
             <ul>
                 {items.map(item => (
@@ -16,7 +16,7 @@ const Content = ({items, handleChange, deleteItem}) => {
             </ul>)
             : (<p>Empty list</p>)
 }
-        </main>
+        </>
     )
 
 
